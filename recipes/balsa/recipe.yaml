@@ -7,7 +7,7 @@ package:
 
 source:
   git: https://github.com/idlab-discover/balsa.git
-  rev: bfe200307ef9e98a2762a4e80c66d25f2767f432
+  rev: b32c4a3814c35cd77634ea207da0fa1e03aeb31e
 
 build:
   number: 0
