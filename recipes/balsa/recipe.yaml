@@ -1,0 +1,54 @@
+context:
+  version: "0.2.0"
+
+package:
+  name: balsa
+  version: ${{ version }}
+
+source:
+  git: https://github.com/idlab-discover/balsa.git
+  rev: bfe200307ef9e98a2762a4e80c66d25f2767f432
+
+build:
+  number: 0
+  skip: not linux or not x86_64
+  files:
+    - lib/mojo/balsa.mojoc
+  script:
+    - mkdir -p "$PREFIX/lib/mojo"
+    - mojo precompile -I "$PREFIX/lib/mojo" src/balsa -o "$PREFIX/lib/mojo/balsa.mojoc"
+
+requirements:
+  build:
+    - mojo-compiler ==1.1.0
+  host:
+    - mojo-compiler ==1.1.0
+    - max-core ==26.6.0
+  run:
+    - mojo-compiler ==1.1.0
+    - max-core ==26.6.0
+
+tests:
+  - script:
+      - mojo run test.mojo
+    requirements:
+      run:
+        - gcc_linux-64
+    files:
+      recipe:
+        - test.mojo
+
+about:
+  homepage: https://github.com/idlab-discover/balsa
+  repository: https://github.com/idlab-discover/balsa
+  summary: Native Mojo storage and editing for Treelite v4 checkpoints
+  license: Apache-2.0
+  license_file:
+    - LICENSE
+    - LICENSES/Treelite.txt
+    - THIRD_PARTY_NOTICES.md
+
+extra:
+  project_name: balsa
+  maintainers:
+    - Str-Gen
